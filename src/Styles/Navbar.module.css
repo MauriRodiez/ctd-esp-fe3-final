@@ -1,0 +1,49 @@
+nav{
+    align-items: center;
+    background-color:rgb(245, 245, 245);
+    display: flex;
+    width: 100vw;
+    justify-content: space-evenly;
+}
+
+nav .menu{
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+.menu li{
+    font-size: 0.9rem;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+a{
+    color: #000;
+    text-decoration: none;
+    margin: 5px;
+    cursor: pointer;
+}
+
+a:hover{
+    color: rgb(210, 72, 30);
+} 
+
+.logo{
+    font-size: 2rem;
+    font-weight: 500;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', 'monospace';
+}
+
+.logo span{
+    color: rgb(210, 72, 30);
+}
+
+.btnChange{
+    background-color: #000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btnChange:hover{
+    background-color: #ccc;
+}
