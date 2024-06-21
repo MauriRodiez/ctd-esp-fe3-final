@@ -11,8 +11,13 @@ const reducerState = (state, action) => {
       return { ...state, dentists: action.payload };
     case "CHANGE_THEME":
       return { ...state, theme: state.theme === themes.light ? themes.dark : themes.light };
-    case "ADD_FAVS":
-      return{ ...state, favs: [...state.favs, action.payload]}
+    case "TOGGLE_FAV":
+        const isFav = state.favs.some(fav => fav.id === action.payload.id);
+        const updatedFavs = isFav
+          ? state.favs.filter(fav => fav.id !== action.payload.id)
+          : [...state.favs, action.payload];
+        localStorage.setItem("favs", JSON.stringify(updatedFavs));
+        return { ...state, favs: updatedFavs };
     default:
       return state;
   }
@@ -21,7 +26,7 @@ const reducerState = (state, action) => {
 const initialState = {
   dentists: [],
   theme: themes.light,
-  favs: []
+  favs: JSON.parse(localStorage.getItem("favs")) || [],
 };
 
 const Context = ({ children }) => {

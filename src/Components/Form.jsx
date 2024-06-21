@@ -41,11 +41,11 @@ const Form = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={client.fullName} onChange={handleNombre} placeholder="Ingresá tu nombre completo" />
-        <input type="mail" value={client.email} onChange={handleEmail} placeholder="Ingresá tu correo" />
-        <button>Enviar</button>
+    <div classname=" w-auto">
+      <form onSubmit={handleSubmit} className="border py-10 px-20 border-gray-900/10 pb-12 flex flex-col">
+        <input className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" type="text" value={client.fullName} onChange={handleNombre} placeholder="Ingresá tu nombre completo" />
+        <input className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" type="mail" value={client.email} onChange={handleEmail} placeholder="Ingresá tu correo" />
+        <button className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Enviar</button>
       </form>
       
       {show && (
