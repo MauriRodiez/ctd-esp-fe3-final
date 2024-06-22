@@ -9,16 +9,18 @@ const Favs = () => {
   const { state } = useGeneralStates();
 
   return (
-    <>
-      <h1>Dentists Favs</h1>
-      <div className="card-grid">
+    <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+      <h1 className="text-4xl font-bold leading-7 text-gray-900 sm:text-3xl sm:tracking-tight dark:text-white">
+        Dentists Favs
+      </h1>
+      <div className="mt-10 py-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 border-t border-teal-500 dark:border-lime-200">
         {/* este componente debe consumir los destacados del localStorage */}
         {state.favs.map((fav) => (
           <Card key={fav.id} user={fav} />
         ))}
         {/* Deberan renderizar una Card por cada uno de ellos */}
       </div>
-    </>
+    </div>
   );
 };
 

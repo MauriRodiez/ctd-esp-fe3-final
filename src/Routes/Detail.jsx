@@ -3,7 +3,6 @@ import axios from "axios"
 import { useParams } from 'react-router-dom'
 import { endpoint } from '../Utils/endpoint'
 import { useGeneralStates } from '../Contexts/Context'
-import { themes } from '../Utils/themes';
 
 //Este componente debera ser estilado como "dark" o "light" dependiendo del theme del Context
 
@@ -25,11 +24,11 @@ const Detail = () => {
 
   return (
     <>
-      <div className="h-screen py-10 px-10 flex flex-col w-full md:w-full lg:w-full">{/*state.theme === themes.light ? 'light' : 'dark'*/}
-      <h1 className='text-4xl font-bold leading-7 text-gray-900 sm:text-3xl sm:tracking-tight'>Detail Dentist id </h1>
+      <div className="h-screen py-10 flex flex-col w-full md:w-full lg:w-full items-center">
+      <h1 className="text-4xl font-bold leading-7 text-gray-900 sm:text-3xl sm:tracking-tight dark:text-white">Detail Dentist id </h1>
       {/* aqui deberan renderizar la informacion en detalle de un user en especifico */}
-      <table className="table-auto py-1 px-1 mt-10 border-separate border-spacing-1 border border-lime-900">
-        <thead className="border bg-lime-600 text-center font-semibold tracking-wider h-10">
+      <table className="table-auto py-1 px-1 mt-10 border-separate border-spacing-1 border border-teal-900 w-2/3 dark:border-lime-200">
+        <thead className="border bg-teal-600 text-center font-semibold tracking-wider h-10 dark:bg-lime-600">
           <tr>
             <td>Nombre</td>
             <td>Email</td>
@@ -37,7 +36,7 @@ const Detail = () => {
             <td>Sitio web</td>
           </tr>
         </thead>
-        <tbody className="border bg-lime-100 text-center font-semibold tracking-wider h-10">
+        <tbody className="border bg-teal-100 text-center font-semibold tracking-wider h-10 dark:bg-lime-100">
           <tr>
             <td>{dentist.name}</td>
             <td>{dentist.email}</td>

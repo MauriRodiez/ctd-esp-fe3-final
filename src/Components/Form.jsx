@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { icons } from "../Utils/icons";
+import ErrorMsj from "./ErrorMsj";
+import SuccessMsj from "./SuccessMsj";
 
 
 const Form = () => {
@@ -9,8 +12,13 @@ const Form = () => {
     email: ""
   })
 
-  const [show, setShow] = useState(false)
-  const [error, setError] = useState(false)
+  const [ show, setShow ] = useState(false)
+  const [ error, setError ] = useState({
+    validName: false,
+    validMail: false
+
+  })
+  const [ submitted, setSubmitted ] = useState("")
 
   const handleNombre = (e) => setClient({
     ...client, fullName: e.target.value
@@ -20,39 +28,58 @@ const Form = () => {
     ...client, email: e.target.value
   })
 
+  const emailValidate = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if(
-      client.fullName.trim().length > 5 &&
-      client.email.trim().length > 5
-    ){
+    const isFullNameValid = client.fullName.trim().length > 5;
+    const isEmailValid = emailValidate(client.email.trim());
+
+    if(isFullNameValid && isEmailValid){
       setShow(true)
-      setError(false)
+      setError({ validName: false, validMail: false})
+      setSubmitted(client.fullName)
 
       setClient({
         fullName: "",
         email: ""
       })
     }else{
-      setError(true)
+      setError({
+        validName: !isFullNameValid,
+        validMail: !isEmailValid
+      })
+      setShow(false)
     }
-
   }
 
   return (
-    <div classname=" w-auto">
-      <form onSubmit={handleSubmit} className="border py-10 px-20 border-gray-900/10 pb-12 flex flex-col">
-        <input className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" type="text" value={client.fullName} onChange={handleNombre} placeholder="Ingresá tu nombre completo" />
-        <input className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" type="mail" value={client.email} onChange={handleEmail} placeholder="Ingresá tu correo" />
-        <button className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Enviar</button>
+    <div>
+      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded py-10 px-20 pb-12 flex flex-col gap-2 w-full">
+        <label className="block text-green-900 text-sm font-bold mb-2" htmlFor="username">
+          Nombre y Apellido:
+        </label>
+        <input className={`appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white ${error.validName ? 'border-red-500' : 'border-lime-500'}`}
+          type="text" value={client.fullName} onChange={handleNombre} placeholder="Nombre completo" />
+        <label className="block text-green-900 text-sm font-bold mb-2" htmlFor="mail">
+          Mail:
+        </label>
+        <input className={`appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white ${error.validMail ? 'border-red-500' : 'border-lime-500'}`} 
+        id="mail" type="mail" value={client.email} onChange={handleEmail} placeholder="Email" />
+        <button className="mt-5 shadow bg-lime-500 hover:bg-lime-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded flex items-center justify-center gap-1">
+          Enviar{icons.send}
+        </button>
       </form>
       
       {show && (
-        <p>Gracias {client.fullName}, te contactaremos cuanto antes vía mail.</p>
+        <SuccessMsj nombre = { submitted } />
       )}
-      {error && (
-        <p>Por favor verifique su información</p>
+      {(error.validName || error.validMail) && (
+        <ErrorMsj />
       )}
 
     </div>
